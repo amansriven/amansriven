@@ -19,6 +19,7 @@ I build AI systems that actually ship — from a Kubernetes-based AI gateway at 
 
 - 🏥 &nbsp;**Humana** — AI gateway with Envoy, Helm, and ArgoCD; MCP reliability tooling; knowledge base retrieval tuning (45% → 85% accuracy)
 - 🤖 &nbsp;**Odyssey AI** — 9-agent healthcare claims system using Google ADK; 80% routing accuracy; 2nd place at hackathon
+- New Project Coming Soon
 
 ### What I've shipped
 
