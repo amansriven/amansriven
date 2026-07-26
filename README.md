@@ -2,7 +2,7 @@
 
 ```
     ╭──────────────────────────────────────────╮
-    │  aman sriven — ai / ml engineer          │
+    │      aman sriven — ai / ml engineer      │
     │  cs @ texas a&m · building agentic infra │
     ╰──────────────────────────────────────────╯
 ```
