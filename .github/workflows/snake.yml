@@ -1,0 +1,33 @@
+# Regenerates the contribution-snake animation every day and commits it to assets/snake/
+name: generate snake
+
+on:
+  schedule:
+    - cron: "0 */12 * * *"   # twice a day
+  workflow_dispatch:          # lets you run it manually from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  snake:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/snake-light.svg?color_snake=#7C3AED&color_dots=#EBEDF0,#A5F3FC,#22D3EE,#0891B2,#155E75
+            dist/snake-dark.svg?palette=github-dark&color_snake=#A78BFA&color_dots=#161B22,#0E4D5C,#1583A0,#22D3EE,#A5F3FC
+
+      - name: commit snake
+        run: |
+          mkdir -p assets/snake
+          mv dist/*.svg assets/snake/
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/snake
+          git diff --staged --quiet || git commit -m "chore: update snake [skip ci]"
+          git push
