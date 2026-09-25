@@ -4,9 +4,9 @@
 
 <br><br>
 
-<a href="https://amansriven.com"><img src="https://img.shields.io/badge/amansriven.com-0D1117?style=for-the-badge&logo=googlechrome&logoColor=F472B6" alt="Portfolio" /></a>
-<a href="https://linkedin.com/in/aman-sriven"><img src="https://img.shields.io/badge/linkedin-0D1117?style=for-the-badge&logo=linkedin&logoColor=22D3EE" alt="LinkedIn" /></a>
-<a href="mailto:sriven.aman@gmail.com"><img src="https://img.shields.io/badge/email-0D1117?style=for-the-badge&logo=gmail&logoColor=A78BFA" alt="Email" /></a>
+<a href="https://amansriven.com"><img src="https://img.shields.io/badge/amansriven.com-0D1117?style=for-the-badge&logo=googlechrome&logoColor=7AA2F7" alt="Portfolio" /></a>
+<a href="https://linkedin.com/in/aman-sriven"><img src="https://img.shields.io/badge/linkedin-0D1117?style=for-the-badge&logo=linkedin&logoColor=7AA2F7" alt="LinkedIn" /></a>
+<a href="mailto:sriven.aman@gmail.com"><img src="https://img.shields.io/badge/email-0D1117?style=for-the-badge&logo=gmail&logoColor=7AA2F7" alt="Email" /></a>
 
 </div>
 
