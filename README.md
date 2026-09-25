@@ -4,6 +4,7 @@
 
 <br><br>
 
+<a href="https://amansriven.com"><img src="https://img.shields.io/badge/amansriven.com-0D1117?style=for-the-badge&logo=googlechrome&logoColor=F472B6" alt="Portfolio" /></a>
 <a href="https://linkedin.com/in/aman-sriven"><img src="https://img.shields.io/badge/linkedin-0D1117?style=for-the-badge&logo=linkedin&logoColor=22D3EE" alt="LinkedIn" /></a>
 <a href="mailto:sriven.aman@gmail.com"><img src="https://img.shields.io/badge/email-0D1117?style=for-the-badge&logo=gmail&logoColor=A78BFA" alt="Email" /></a>
 
@@ -44,6 +45,12 @@ services:   [ fastapi, flask, node, postgres, mongodb ]
 + observability for nondeterministic systems
 - yaml
 ```
+
+### `~/portfolio`
+
+<a href="https://amansriven.com"><img src="./assets/portfolio.png" width="100%" alt="preview of amansriven.com — click to visit" /></a>
+
+<p align="center"><sub><a href="https://amansriven.com">amansriven.com ↗</a></sub></p>
 
 <img src="./assets/divider.svg" width="100%" />
 
