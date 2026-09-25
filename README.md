@@ -4,57 +4,27 @@
 
 <br><br>
 
-<a href="https://amansriven.com"><img src="https://img.shields.io/badge/amansriven.com-0D1117?style=for-the-badge&logo=googlechrome&logoColor=7AA2F7" alt="Portfolio" /></a>
-<a href="https://linkedin.com/in/aman-sriven"><img src="https://img.shields.io/badge/linkedin-0D1117?style=for-the-badge&logo=linkedin&logoColor=7AA2F7" alt="LinkedIn" /></a>
-<a href="mailto:sriven.aman@gmail.com"><img src="https://img.shields.io/badge/email-0D1117?style=for-the-badge&logo=gmail&logoColor=7AA2F7" alt="Email" /></a>
+<a href="https://amansriven.com"><img src="./assets/btn-site.svg" height="40" alt="amansriven.com" /></a>&nbsp;
+<a href="https://linkedin.com/in/aman-sriven"><img src="./assets/btn-linkedin.svg" height="40" alt="LinkedIn" /></a>&nbsp;
+<a href="mailto:sriven.aman@gmail.com"><img src="./assets/btn-email.svg" height="40" alt="Email" /></a>
 
-</div>
-
-<img src="./assets/divider.svg" width="100%" />
-
-```console
-$ whoami --verbose
-
-  focus       LLM infrastructure, multi-agent systems, model reliability
-  currently   software engineering intern — healthcare AI
-  before      ai engineering intern · undergraduate researcher
-  interests   inference routing, RAG evaluation, distributed systems
-```
-
-### `~/stack`
-
-<p>
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=py,cpp,java,ts,pytorch,tensorflow,kubernetes,docker,aws,gcp,fastapi,flask,nodejs,postgres,mongodb&theme=dark&perline=15" />
-    <img src="https://skillicons.dev/icons?i=py,cpp,java,ts,pytorch,tensorflow,kubernetes,docker,aws,gcp,fastapi,flask,nodejs,postgres,mongodb&theme=light&perline=15" alt="python, c++, java, typescript, pytorch, tensorflow, kubernetes, docker, aws, gcp, fastapi, flask, node, postgres, mongodb" />
-  </picture>
-</p>
-
-```yaml
-languages:  [ python, c++, java, typescript, sql ]
-ml:         [ pytorch, tensorflow, vertex-ai, google-adk, rag ]
-infra:      [ kubernetes, docker, argocd, helm, aws, gcp ]
-services:   [ fastapi, flask, node, postgres, mongodb ]
-```
-
-### `~/currently-thinking-about`
-
-```diff
-+ agent orchestration at scale
-+ retrieval quality over model size
-+ observability for nondeterministic systems
-- yaml
-```
-
-### `~/portfolio`
-
-<a href="https://amansriven.com"><img src="./assets/portfolio.png" width="100%" alt="preview of amansriven.com — click to visit" /></a>
-
-<p align="center"><sub><a href="https://amansriven.com">amansriven.com ↗</a></sub></p>
+<br><br>
 
 <img src="./assets/divider.svg" width="100%" />
 
-<div align="center">
+<br>
+
+<img src="./assets/about.svg" width="100%" alt="whoami --verbose — focus: LLM infrastructure, multi-agent systems, model reliability · currently: software engineering intern, healthcare AI · before: ai engineering intern, undergraduate researcher · interests: inference routing, RAG evaluation, distributed systems" />
+
+<img src="./assets/stack.svg" width="100%" alt="stack — languages: python, c++, java, typescript, sql · ml: pytorch, tensorflow, vertex-ai, google-adk, rag · infra: kubernetes, docker, argocd, helm, aws, gcp · services: fastapi, flask, node, postgres, mongodb" />
+
+<img src="./assets/queue.svg" width="100%" alt="currently thinking about — agent orchestration at scale · retrieval quality over model size · observability for nondeterministic systems · not yaml" />
+
+<a href="https://amansriven.com"><img src="./assets/portfolio-card.svg" width="100%" alt="preview of amansriven.com — click to visit" /></a>
+
+<br><br>
+
+<img src="./assets/divider.svg" width="100%" />
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/snake/snake-dark.svg" />
