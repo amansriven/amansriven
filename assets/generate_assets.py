@@ -331,29 +331,12 @@ def footer():
 
 # ---------------------------------------------------------------- cards
 def card(W, H, title, tag, body, aria, defs="", title_svg=None):
-    """Shared window chrome for every section card: dark panel, fading grid,
-    title bar with a path label, a tag pill, and a gradient hairline frame."""
+    """Shared window chrome for every section card. Deliberately flat -- the header
+    is the one animated showpiece; cards stay quiet so they don't compete with it."""
     frame = rounded_rect_path(8.5, 8.5, W - 17, H - 17, 15.5)
-    tag_w = len(tag) * 7.2 + 34
+    tag_w = len(tag) * 7.6 + 38
     return f'''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="{escape(aria)}">
   <defs>
-    <linearGradient id="frame" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="{BLUE}" stop-opacity="0.45"/><stop offset="0.5" stop-color="{LINE}"/>
-      <stop offset="1" stop-color="{INDIGO}" stop-opacity="0.45"/>
-    </linearGradient>
-    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="{BLUE}"/><stop offset="1" stop-color="{INDIGO}"/>
-    </linearGradient>
-    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M32 0H0V32" fill="none" stroke="{MUTED}" stroke-width="0.5" opacity="0.16"/>
-    </pattern>
-    <radialGradient id="fade" cx="0.2" cy="0.3" r="0.9">
-      <stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
-    </radialGradient>
-    <mask id="gridmask"><rect width="{W}" height="{H}" fill="url(#fade)"/></mask>
-    <radialGradient id="aura" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="{BLUE}" stop-opacity="0.1"/><stop offset="1" stop-color="{BLUE}" stop-opacity="0"/>
-    </radialGradient>
     <clipPath id="win"><rect x="8" y="8" width="{W - 16}" height="{H - 16}" rx="16"/></clipPath>
     {defs}
   </defs>
@@ -368,20 +351,16 @@ def card(W, H, title, tag, body, aria, defs="", title_svg=None):
   </style>
   <rect x="8" y="8" width="{W - 16}" height="{H - 16}" rx="16" fill="{BG}"/>
   <g clip-path="url(#win)">
-    <rect x="8" y="8" width="{W - 16}" height="{H - 16}" fill="url(#grid)" mask="url(#gridmask)"/>
-    <ellipse cx="240" cy="{H * 0.45:.0f}" rx="320" ry="{H * 0.5:.0f}" fill="url(#aura)">
-      <animate attributeName="cx" values="200;340;200" dur="16s" repeatCount="indefinite"/>
-    </ellipse>
     <rect x="8" y="8" width="{W - 16}" height="40" fill="{BAR}"/>
     <line x1="8" y1="48" x2="{W - 8}" y2="48" stroke="{LINE}"/>
   </g>
   <circle cx="34" cy="28" r="5.5" fill="{LINE}"/><circle cx="54" cy="28" r="5.5" fill="{LINE}"/><circle cx="74" cy="28" r="5.5" fill="{LINE}"/>
   {title_svg or f'<text x="{W / 2}" y="33" text-anchor="middle" class="lbl">{title}</text>'}
   <rect x="{W - 24 - tag_w}" y="17" width="{tag_w}" height="22" rx="11" fill="{BG}" stroke="{LINE}"/>
-  <circle cx="{W - 24 - tag_w + 15}" cy="28" r="3" fill="url(#grad)"/>
+  <circle cx="{W - 24 - tag_w + 15}" cy="28" r="3" fill="{BLUE}"/>
   <text x="{W - 24 - tag_w + 25}" y="32" class="lbl" style="font-size:12px">{tag}</text>
 {body}
-  <path d="{frame}" fill="none" stroke="url(#frame)" stroke-width="1"/>
+  <path d="{frame}" fill="none" stroke="{LINE}" stroke-width="1"/>
 </svg>'''
 
 
@@ -396,8 +375,7 @@ def about():
     for i, (k, v) in enumerate(rows):
         y = 146 + i * 44
         body.append(f'''  <g opacity="0">{fade_in(t + 0.2 + i * 0.15, 0.5, 6)}
-    <rect x="48" y="{y - 21}" width="3" height="28" rx="1.5" fill="url(#grad)" opacity="0.8"/>
-    <text x="68" y="{y}" font-size="19" class="k">{k}</text>
+    <text x="68" y="{y}" font-size="19" class="k">{k}<tspan class="p">:</tspan></text>
     <text x="236" y="{y}" font-size="19" class="v">{escape(v)}</text>
   </g>''')
     H = 146 + len(rows) * 44 + 12
@@ -419,11 +397,10 @@ def stack():
                     f'<text x="{W - 48}" y="{y + 6}" text-anchor="end" font-size="13" class="k">{len(items)} deps</text>')
         x = 260
         for item in items:
-            w = len(item) * 9.6 + 30
+            w = len(item) * 9.6 + 30 - 8
             body.append(f'''  <g opacity="0">{fade_in(0.25 + n * 0.045, 0.45, 6)}
-    <rect x="{x}" y="{y - 16}" width="{w:.1f}" height="32" rx="8" fill="{BAR}" stroke="{LINE}"/>
-    <circle cx="{x + 13}" cy="{y}" r="2.5" fill="url(#grad)"/>
-    <text x="{x + 22}" y="{y + 5.5}" font-size="16" class="v">{escape(item)}</text>
+    <rect x="{x}" y="{y - 16}" width="{w:.1f}" height="32" rx="6" fill="none" stroke="{LINE}"/>
+    <text x="{x + 15}" y="{y + 5.5}" font-size="16" class="v">{escape(item)}</text>
   </g>''')
             x += w + 12
             n += 1
@@ -437,11 +414,11 @@ def stack():
 def queue():
     """The 'currently thinking about' list as an htop-style process table."""
     W = 1200
-    procs = [("0x01", "running", BLUE, "agent orchestration at scale", (150, 210, 175)),
-             ("0x02", "running", BLUE, "retrieval quality over model size", (120, 170, 140)),
-             ("0x03", "indexing", INDIGO, "observability for nondeterministic systems", (60, 110, 80)),
+    procs = [("0x01", "running", BLUE, "agent orchestration at scale", 72),
+             ("0x02", "running", BLUE, "retrieval quality over model size", 58),
+             ("0x03", "indexing", MUTED, "observability for nondeterministic systems", 31),
              ("0x04", "killed", DIM, "yaml", None)]
-    bx, bw = 900, 250
+    bx, cells = 900, 14
     body = [f'  <text x="48" y="84" class="hd">PID</text><text x="140" y="84" class="hd">STATE</text>'
             f'<text x="290" y="84" class="hd">THREAD</text><text x="{bx}" y="84" class="hd">LOAD</text>',
             f'  <line x1="48" y1="98" x2="{W - 48}" y2="98" stroke="{LINE}"/>']
@@ -453,16 +430,12 @@ def queue():
             task_svg = (f'<text x="290" y="{y}" font-size="18" class="k">{escape(task)}</text>'
                         f'<line x1="288" y1="{y - 6}" x2="{290 + len(task) * 10.8 + 2}" y2="{y - 6}" stroke="{DIM}" stroke-width="1.5"/>')
         else:
-            a, b, c = load
-            d = 3.2 + i * 0.7
-            bar = (f'<rect x="{bx}" y="{y - 13}" width="{bw}" height="14" rx="3" fill="{BAR}" stroke="{LINE}"/>'
-                   f'<rect x="{bx}" y="{y - 13}" width="{a}" height="14" rx="3" fill="url(#grad)" opacity="0.85">'
-                   f'<animate attributeName="width" values="{a};{b};{c};{a}" dur="{d:.1f}s" repeatCount="indefinite" '
-                   f'calcMode="spline" keyTimes="0;0.35;0.7;1" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/></rect>')
+            on = round(load / 100 * cells)
+            bar = (f'<text x="{bx}" y="{y}" font-size="16"><tspan class="k">[</tspan>'
+                   f'<tspan fill="{col}">{"█" * on}</tspan><tspan fill="{LINE}">{"░" * (cells - on)}</tspan>'
+                   f'<tspan class="k">] {load:>3}%</tspan></text>')
             task_svg = f'<text x="290" y="{y}" font-size="18" class="c">{escape(task)}</text>'
-        dot = (f'<circle cx="146" cy="{y - 6}" r="4" fill="{col}">'
-               + ('' if dead else f'<animate attributeName="opacity" values="1;0.35;1" dur="{1.6 + i * 0.4:.1f}s" repeatCount="indefinite"/>')
-               + '</circle>')
+        dot = f'<circle cx="146" cy="{y - 6}" r="3.5" fill="{col}"/>'
         body.append(f'''  <g opacity="0">{fade_in(0.3 + i * 0.18, 0.5, 6)}
     <text x="48" y="{y}" font-size="16" class="k">{pid}</text>
     {dot}<text x="160" y="{y}" font-size="16" fill="{col}">{state}</text>
@@ -508,15 +481,8 @@ def button(label, glyph):
     """Link pill for the header row; each link needs its own <img>."""
     w = round(len(label) * 9 + 64)
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} 44" width="{w}" height="44" role="img" aria-label="{escape(label)}">
-  <defs>
-    <linearGradient id="b" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="{BLUE}" stop-opacity="0.7"/><stop offset="0.5" stop-color="{LINE}"/>
-      <stop offset="1" stop-color="{INDIGO}" stop-opacity="0.7"/>
-    </linearGradient>
-    <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="{BLUE}"/><stop offset="1" stop-color="{INDIGO}"/></linearGradient>
-  </defs>
-  <rect x="0.5" y="0.5" width="{w - 1}" height="43" rx="10" fill="{BG}" stroke="url(#b)"/>
-  <text x="20" y="27.5" font-family="{MONO}" font-size="15" font-weight="700" fill="url(#g)">{escape(glyph)}</text>
+  <rect x="0.5" y="0.5" width="{w - 1}" height="43" rx="10" fill="{BG}" stroke="{LINE}"/>
+  <text x="20" y="27.5" font-family="{MONO}" font-size="15" font-weight="700" fill="{BLUE}">{escape(glyph)}</text>
   <text x="42" y="27.5" font-family="{MONO}" font-size="15" fill="{TEXT}">{escape(label)}</text>
 </svg>'''
 
