@@ -8,29 +8,38 @@
 <a href="https://linkedin.com/in/aman-sriven"><img src="./assets/btn-linkedin.svg" height="40" alt="LinkedIn" /></a>&nbsp;
 <a href="mailto:sriven.aman@gmail.com"><img src="./assets/btn-email.svg" height="40" alt="Email" /></a>
 
-<br><br>
-
-<img src="./assets/divider.svg" width="100%" />
+</div>
 
 <br>
 
-<img src="./assets/about.svg" width="100%" alt="whoami --verbose — focus: LLM infrastructure, multi-agent systems, model reliability · currently: software engineering intern, healthcare AI · before: ai engineering intern, undergraduate researcher · interests: inference routing, RAG evaluation, distributed systems" />
+```console
+$ whoami --verbose
+
+  focus       LLM infrastructure, multi-agent systems, model reliability
+  currently   software engineering intern — healthcare AI
+  before      ai engineering intern · undergraduate researcher
+  interests   inference routing, RAG evaluation, distributed systems
+```
+
+<br>
+
+### `~/stack`
 
 <img src="./assets/stack.svg" width="100%" alt="stack — languages: python, c++, java, typescript, sql · ml: pytorch, tensorflow, vertex-ai, google-adk, rag · infra: kubernetes, docker, argocd, helm, aws, gcp · services: fastapi, flask, node, postgres, mongodb" />
 
-<img src="./assets/queue.svg" width="100%" alt="currently thinking about — agent orchestration at scale · retrieval quality over model size · observability for nondeterministic systems · not yaml" />
+### `~/currently-thinking-about`
 
-<a href="https://amansriven.com"><img src="./assets/portfolio-card.svg" width="100%" alt="preview of amansriven.com — click to visit" /></a>
+```diff
++ agent orchestration at scale
++ retrieval quality over model size
++ observability for nondeterministic systems
+- yaml
+```
 
-<br><br>
+<br>
 
-<img src="./assets/divider.svg" width="100%" />
+<div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/snake/snake-dark.svg" />
-  <img src="./assets/snake/snake-light.svg" width="100%" alt="contribution graph being eaten by a snake" />
-</picture>
-
-<a href="https://linkedin.com/in/aman-sriven"><img src="./assets/footer.svg" width="75%" alt="open to swe / ml internships · reach out ↗" /></a>
+<a href="https://linkedin.com/in/aman-sriven"><img src="./assets/footer.svg" width="60%" alt="open to swe / ml internships · reach out ↗" /></a>
 
 </div>

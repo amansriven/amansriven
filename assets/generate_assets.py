@@ -330,12 +330,12 @@ def footer():
 
 
 # ---------------------------------------------------------------- cards
-def card(W, H, title, tag, body, aria, defs="", title_svg=None):
+def card(W, H, title, tag, body, aria, defs=""):
     """Shared window chrome for every section card. Deliberately flat -- the header
     is the one animated showpiece; cards stay quiet so they don't compete with it."""
     frame = rounded_rect_path(8.5, 8.5, W - 17, H - 17, 15.5)
     tag_w = len(tag) * 7.6 + 38
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="{escape(aria)}">
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="{escape(aria)}">
   <defs>
     <clipPath id="win"><rect x="8" y="8" width="{W - 16}" height="{H - 16}" rx="16"/></clipPath>
     {defs}
@@ -355,32 +355,13 @@ def card(W, H, title, tag, body, aria, defs="", title_svg=None):
     <line x1="8" y1="48" x2="{W - 8}" y2="48" stroke="{LINE}"/>
   </g>
   <circle cx="34" cy="28" r="5.5" fill="{LINE}"/><circle cx="54" cy="28" r="5.5" fill="{LINE}"/><circle cx="74" cy="28" r="5.5" fill="{LINE}"/>
-  {title_svg or f'<text x="{W / 2}" y="33" text-anchor="middle" class="lbl">{title}</text>'}
+  <text x="{W / 2}" y="33" text-anchor="middle" class="lbl">{title}</text>
   <rect x="{W - 24 - tag_w}" y="17" width="{tag_w}" height="22" rx="11" fill="{BG}" stroke="{LINE}"/>
   <circle cx="{W - 24 - tag_w + 15}" cy="28" r="3" fill="{BLUE}"/>
   <text x="{W - 24 - tag_w + 25}" y="32" class="lbl" style="font-size:12px">{tag}</text>
 {body}
   <path d="{frame}" fill="none" stroke="{LINE}" stroke-width="1"/>
 </svg>'''
-
-
-def about():
-    W = 1200
-    rows = [("focus", "LLM infrastructure, multi-agent systems, model reliability"),
-            ("currently", "software engineering intern — healthcare AI"),
-            ("before", "ai engineering intern · undergraduate researcher"),
-            ("interests", "inference routing, RAG evaluation, distributed systems")]
-    cmd, t = typed("whoami --verbose", 0.3, 0.035)
-    body = [f'  <text x="48" y="94" font-size="20"><tspan class="p">❯ </tspan><tspan class="c">{cmd}</tspan></text>']
-    for i, (k, v) in enumerate(rows):
-        y = 146 + i * 44
-        body.append(f'''  <g opacity="0">{fade_in(t + 0.2 + i * 0.15, 0.5, 6)}
-    <text x="68" y="{y}" font-size="19" class="k">{k}<tspan class="p">:</tspan></text>
-    <text x="236" y="{y}" font-size="19" class="v">{escape(v)}</text>
-  </g>''')
-    H = 146 + len(rows) * 44 + 12
-    return card(W, H, "~/profile — zsh", "online", "\n".join(body),
-                "whoami: " + "; ".join(f"{k}: {v}" for k, v in rows))
 
 
 def stack():
@@ -411,72 +392,6 @@ def stack():
                 "stack: " + "; ".join(f"{g}: {', '.join(items)}" for g, items in groups))
 
 
-def queue():
-    """The 'currently thinking about' list as an htop-style process table."""
-    W = 1200
-    procs = [("0x01", "running", BLUE, "agent orchestration at scale", 72),
-             ("0x02", "running", BLUE, "retrieval quality over model size", 58),
-             ("0x03", "indexing", MUTED, "observability for nondeterministic systems", 31),
-             ("0x04", "killed", DIM, "yaml", None)]
-    bx, cells = 900, 14
-    body = [f'  <text x="48" y="84" class="hd">PID</text><text x="140" y="84" class="hd">STATE</text>'
-            f'<text x="290" y="84" class="hd">THREAD</text><text x="{bx}" y="84" class="hd">LOAD</text>',
-            f'  <line x1="48" y1="98" x2="{W - 48}" y2="98" stroke="{LINE}"/>']
-    for i, (pid, state, col, task, load) in enumerate(procs):
-        y = 136 + i * 46
-        dead = load is None
-        if dead:
-            bar = f'<text x="{bx}" y="{y}" font-size="18" class="k">—</text>'
-            task_svg = (f'<text x="290" y="{y}" font-size="18" class="k">{escape(task)}</text>'
-                        f'<line x1="288" y1="{y - 6}" x2="{290 + len(task) * 10.8 + 2}" y2="{y - 6}" stroke="{DIM}" stroke-width="1.5"/>')
-        else:
-            on = round(load / 100 * cells)
-            bar = (f'<text x="{bx}" y="{y}" font-size="16"><tspan class="k">[</tspan>'
-                   f'<tspan fill="{col}">{"█" * on}</tspan><tspan fill="{LINE}">{"░" * (cells - on)}</tspan>'
-                   f'<tspan class="k">] {load:>3}%</tspan></text>')
-            task_svg = f'<text x="290" y="{y}" font-size="18" class="c">{escape(task)}</text>'
-        dot = f'<circle cx="146" cy="{y - 6}" r="3.5" fill="{col}"/>'
-        body.append(f'''  <g opacity="0">{fade_in(0.3 + i * 0.18, 0.5, 6)}
-    <text x="48" y="{y}" font-size="16" class="k">{pid}</text>
-    {dot}<text x="160" y="{y}" font-size="16" fill="{col}">{state}</text>
-    {task_svg}
-    {bar}
-  </g>''')
-    H = 136 + len(procs) * 46 - 6
-    return card(W, H, "~/currently-thinking-about — top", "3 threads live", "\n".join(body),
-                "currently thinking about: agent orchestration at scale; retrieval quality over model size; "
-                "observability for nondeterministic systems; not yaml")
-
-
-def portfolio():
-    """Portfolio screenshot framed in a browser window. The image is embedded as a
-    data URI because GitHub serves SVGs in <img>, which can't load external files."""
-    import base64, io
-    from PIL import Image
-    W = 1200
-    iw = W - 16
-    im = Image.open(f"{OUT}/portfolio.png").convert("RGB")
-    ih = round(im.height * iw / im.width)
-    buf = io.BytesIO()
-    im.resize((iw, ih), Image.LANCZOS).save(buf, "JPEG", quality=82, optimize=True, progressive=True)
-    data = base64.b64encode(buf.getvalue()).decode()
-    H = 48 + ih + 8
-    url_w = 360
-    ux = (W - url_w) / 2
-    address = f'''<rect x="{ux}" y="15" width="{url_w}" height="26" rx="8" fill="{BG}" stroke="{LINE}"/>
-  <rect x="{ux + 14}" y="27" width="9" height="7" rx="1.5" fill="none" stroke="{MUTED}" stroke-width="1.3"/>
-  <path d="M{ux + 16},27 v-2.2 a2.5,2.5 0 0 1 5,0 v2.2" fill="none" stroke="{MUTED}" stroke-width="1.3"/>
-  <text x="{W / 2 + 10}" y="33" text-anchor="middle" class="lbl" style="fill:{BODY}">amansriven.com</text>'''
-    body = f'''  <g clip-path="url(#win)">
-    <image x="8" y="48" width="{iw}" height="{ih}" xlink:href="data:image/jpeg;base64,{data}"/>
-    <rect x="8" y="48" width="{iw}" height="{ih}" fill="url(#vignette)"/>
-  </g>'''
-    return card(W, H, "amansriven.com", "live ↗", body, "preview of amansriven.com", title_svg=address,
-                defs=f'''<linearGradient id="vignette" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0.75" stop-color="{BG}" stop-opacity="0"/><stop offset="1" stop-color="{BG}" stop-opacity="0.85"/>
-    </linearGradient>''')
-
-
 def button(label, glyph):
     """Link pill for the header row; each link needs its own <img>."""
     w = round(len(label) * 9 + 64)
@@ -492,10 +407,7 @@ if __name__ == "__main__":
     open(f"{OUT}/header.svg", "w").write(h)
     open(f"{OUT}/divider.svg", "w").write(divider())
     open(f"{OUT}/footer.svg", "w").write(footer())
-    open(f"{OUT}/about.svg", "w").write(about())
     open(f"{OUT}/stack.svg", "w").write(stack())
-    open(f"{OUT}/queue.svg", "w").write(queue())
-    open(f"{OUT}/portfolio-card.svg", "w").write(portfolio())
     for name, label, glyph in [("site", "amansriven.com", "↗"), ("linkedin", "linkedin", "in"), ("email", "email", "@")]:
         open(f"{OUT}/btn-{name}.svg", "w").write(button(label, glyph))
     print("header animation settles at", round(t, 2), "s")
