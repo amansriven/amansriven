@@ -329,69 +329,6 @@ def footer():
 </svg>'''
 
 
-# ---------------------------------------------------------------- cards
-def card(W, H, title, tag, body, aria, defs=""):
-    """Shared window chrome for every section card. Deliberately flat -- the header
-    is the one animated showpiece; cards stay quiet so they don't compete with it."""
-    frame = rounded_rect_path(8.5, 8.5, W - 17, H - 17, 15.5)
-    tag_w = len(tag) * 7.6 + 38
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="{escape(aria)}">
-  <defs>
-    <clipPath id="win"><rect x="8" y="8" width="{W - 16}" height="{H - 16}" rx="16"/></clipPath>
-    {defs}
-  </defs>
-  <style>
-    text {{ font-family: {MONO}; }}
-    .lbl  {{ fill: {MUTED}; font-size: 13px; letter-spacing: 0.5px; }}
-    .p    {{ fill: {BLUE}; font-weight: 700; }}
-    .c    {{ fill: {TEXT}; }}
-    .k    {{ fill: {DIM}; }}
-    .v    {{ fill: {BODY}; }}
-    .hd   {{ fill: {DIM}; font-size: 13px; letter-spacing: 1.5px; }}
-  </style>
-  <rect x="8" y="8" width="{W - 16}" height="{H - 16}" rx="16" fill="{BG}"/>
-  <g clip-path="url(#win)">
-    <rect x="8" y="8" width="{W - 16}" height="40" fill="{BAR}"/>
-    <line x1="8" y1="48" x2="{W - 8}" y2="48" stroke="{LINE}"/>
-  </g>
-  <circle cx="34" cy="28" r="5.5" fill="{LINE}"/><circle cx="54" cy="28" r="5.5" fill="{LINE}"/><circle cx="74" cy="28" r="5.5" fill="{LINE}"/>
-  <text x="{W / 2}" y="33" text-anchor="middle" class="lbl">{title}</text>
-  <rect x="{W - 24 - tag_w}" y="17" width="{tag_w}" height="22" rx="11" fill="{BG}" stroke="{LINE}"/>
-  <circle cx="{W - 24 - tag_w + 15}" cy="28" r="3" fill="{BLUE}"/>
-  <text x="{W - 24 - tag_w + 25}" y="32" class="lbl" style="font-size:12px">{tag}</text>
-{body}
-  <path d="{frame}" fill="none" stroke="{LINE}" stroke-width="1"/>
-</svg>'''
-
-
-def stack():
-    W = 1200
-    groups = [("languages", ["python", "c++", "java", "typescript", "sql"]),
-              ("ml", ["pytorch", "tensorflow", "vertex-ai", "google-adk", "rag"]),
-              ("infra", ["kubernetes", "docker", "argocd", "helm", "aws", "gcp"]),
-              ("services", ["fastapi", "flask", "node", "postgres", "mongodb"])]
-    body, n = [], 0
-    for i, (g, items) in enumerate(groups):
-        y = 104 + i * 62
-        body.append(f'  <text x="48" y="{y + 6}" font-size="13" class="k">{i + 1:02d}</text>'
-                    f'<text x="84" y="{y + 6}" font-size="18" class="v">{g}</text>'
-                    f'<text x="{W - 48}" y="{y + 6}" text-anchor="end" font-size="13" class="k">{len(items)} deps</text>')
-        x = 260
-        for item in items:
-            w = len(item) * 9.6 + 30 - 8
-            body.append(f'''  <g opacity="0">{fade_in(0.25 + n * 0.045, 0.45, 6)}
-    <rect x="{x}" y="{y - 16}" width="{w:.1f}" height="32" rx="6" fill="none" stroke="{LINE}"/>
-    <text x="{x + 15}" y="{y + 5.5}" font-size="16" class="v">{escape(item)}</text>
-  </g>''')
-            x += w + 12
-            n += 1
-        if i < len(groups) - 1:
-            body.append(f'  <line x1="48" y1="{y + 31}" x2="{W - 48}" y2="{y + 31}" stroke="{LINE}" stroke-dasharray="2 6"/>')
-    H = 104 + len(groups) * 62 - 4
-    return card(W, H, "~/stack — tree", f"{n} packages", "\n".join(body),
-                "stack: " + "; ".join(f"{g}: {', '.join(items)}" for g, items in groups))
-
-
 def button(label, glyph):
     """Link pill for the header row; each link needs its own <img>."""
     w = round(len(label) * 9 + 64)
@@ -407,7 +344,6 @@ if __name__ == "__main__":
     open(f"{OUT}/header.svg", "w").write(h)
     open(f"{OUT}/divider.svg", "w").write(divider())
     open(f"{OUT}/footer.svg", "w").write(footer())
-    open(f"{OUT}/stack.svg", "w").write(stack())
     for name, label, glyph in [("site", "amansriven.com", "↗"), ("linkedin", "linkedin", "in"), ("email", "email", "@")]:
         open(f"{OUT}/btn-{name}.svg", "w").write(button(label, glyph))
     print("header animation settles at", round(t, 2), "s")

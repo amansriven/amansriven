@@ -25,7 +25,19 @@ $ whoami --verbose
 
 ### `~/stack`
 
-<img src="./assets/stack.svg" width="100%" alt="stack — languages: python, c++, java, typescript, sql · ml: pytorch, tensorflow, vertex-ai, google-adk, rag · infra: kubernetes, docker, argocd, helm, aws, gcp · services: fastapi, flask, node, postgres, mongodb" />
+<p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=py,cpp,java,ts,pytorch,tensorflow,kubernetes,docker,aws,gcp,fastapi,flask,nodejs,postgres,mongodb&theme=dark&perline=15" />
+    <img src="https://skillicons.dev/icons?i=py,cpp,java,ts,pytorch,tensorflow,kubernetes,docker,aws,gcp,fastapi,flask,nodejs,postgres,mongodb&theme=light&perline=15" alt="python, c++, java, typescript, pytorch, tensorflow, kubernetes, docker, aws, gcp, fastapi, flask, node, postgres, mongodb" />
+  </picture>
+</p>
+
+```yaml
+languages:  [ python, c++, java, typescript, sql ]
+ml:         [ pytorch, tensorflow, vertex-ai, google-adk, rag ]
+infra:      [ kubernetes, docker, argocd, helm, aws, gcp ]
+services:   [ fastapi, flask, node, postgres, mongodb ]
+```
 
 ### `~/currently-thinking-about`
 
