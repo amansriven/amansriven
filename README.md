@@ -7,9 +7,9 @@
 
 <br><br>
 
-<a href="https://amansriven.com"><img src="./assets/btn-site.svg" height="40" alt="amansriven.com" /></a>&nbsp;
-<a href="https://linkedin.com/in/aman-sriven"><img src="./assets/btn-linkedin.svg" height="40" alt="LinkedIn" /></a>&nbsp;
-<a href="mailto:sriven.aman@gmail.com"><img src="./assets/btn-email.svg" height="40" alt="Email" /></a>
+<a href="https://amansriven.com"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/btn-site-dark.svg" /><img src="./assets/btn-site-light.svg" height="40" alt="amansriven.com" /></picture></a>&nbsp;
+<a href="https://linkedin.com/in/aman-sriven"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/btn-linkedin-dark.svg" /><img src="./assets/btn-linkedin-light.svg" height="40" alt="LinkedIn" /></picture></a>&nbsp;
+<a href="mailto:sriven.aman@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/btn-email-dark.svg" /><img src="./assets/btn-email-light.svg" height="40" alt="Email" /></picture></a>
 
 </div>
 

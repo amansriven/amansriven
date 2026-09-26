@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 109 44" width="109" height="44" role="img" aria-label="email">
-  <rect x="0.5" y="0.5" width="108" height="43" rx="10" fill="#0D1117" stroke="#30363D"/>
-  <text x="20" y="27.5" font-family="'JetBrains Mono','Fira Code','SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="15" font-weight="700" fill="#7AA2F7">@</text>
-  <text x="42" y="27.5" font-family="'JetBrains Mono','Fira Code','SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="15" fill="#E6EDF3">email</text>
-</svg>

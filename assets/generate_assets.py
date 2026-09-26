@@ -11,9 +11,9 @@ BLUE, INDIGO, SHEEN = "#7AA2F7", "#8B7CF6", "#DCE6FF"
 # footer + divider sit on the page background, so they must read on light and dark
 BLUE_MID, INDIGO_MID = "#5B8DEF", "#7C6CF0"
 
-# the header ships in two themes and README swaps them with <picture>, so each
+# header + link buttons ship in two themes and README swaps them with <picture>, so each
 # one can sit natively on github's own dark / light page background
-HEADER_THEMES = {
+THEMES = {
     "dark": dict(BG=BG, BAR=BAR, LINE=LINE, TEXT=TEXT, BODY=BODY, MUTED=MUTED, DIM=DIM,
                  BLUE=BLUE, INDIGO=INDIGO, SHEEN=SHEEN,
                  aura=0.2, aura2=0.16, halo=0.45, grid=0.22, scan=0.07, beam=0.8),
@@ -85,7 +85,7 @@ def rounded_rect_path(x, y, w, h, r):
 
 # ---------------------------------------------------------------- header
 def header(theme):
-    th = HEADER_THEMES[theme]
+    th = THEMES[theme]
     BG, BAR, LINE, TEXT, BODY, MUTED, DIM, BLUE, INDIGO, SHEEN = (
         th[k] for k in ("BG", "BAR", "LINE", "TEXT", "BODY", "MUTED", "DIM", "BLUE", "INDIGO", "SHEEN"))
     W, H = 1200, 500
@@ -343,22 +343,33 @@ def footer():
 </svg>'''
 
 
-def button(label, glyph):
-    """Link pill for the header row; each link needs its own <img>."""
-    w = round(len(label) * 9 + 64)
+def button(label, glyph, theme):
+    """Link pill for the header row; each link needs its own <img>.
+    Border and glyph reuse the header's blue -> indigo frame so they read as a set."""
+    th = THEMES[theme]
+    lx = 20 + len(glyph) * 9 + 12  # label starts after the glyph, so "in" gets as much room as "@"
+    w = round(lx + len(label) * 9 + 22)
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} 44" width="{w}" height="44" role="img" aria-label="{escape(label)}">
-  <rect x="0.5" y="0.5" width="{w - 1}" height="43" rx="10" fill="{BG}" stroke="{LINE}"/>
-  <text x="20" y="27.5" font-family="{MONO}" font-size="15" font-weight="700" fill="{BLUE}">{escape(glyph)}</text>
-  <text x="42" y="27.5" font-family="{MONO}" font-size="15" fill="{TEXT}">{escape(label)}</text>
+  <defs>
+    <linearGradient id="b" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="{th['BLUE']}" stop-opacity="0.6"/><stop offset="0.5" stop-color="{th['LINE']}"/>
+      <stop offset="1" stop-color="{th['INDIGO']}" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="{th['BLUE']}"/><stop offset="1" stop-color="{th['INDIGO']}"/></linearGradient>
+  </defs>
+  <rect x="0.5" y="0.5" width="{w - 1}" height="43" rx="10" fill="{th['BG']}" stroke="url(#b)"/>
+  <text x="20" y="27.5" font-family="{MONO}" font-size="15" font-weight="700" fill="url(#g)">{escape(glyph)}</text>
+  <text x="{lx}" y="27.5" font-family="{MONO}" font-size="15" fill="{th['TEXT']}">{escape(label)}</text>
 </svg>'''
 
 
 if __name__ == "__main__":
-    for theme in HEADER_THEMES:
+    for theme in THEMES:
         h, t = header(theme)
         open(f"{OUT}/header-{theme}.svg", "w").write(h)
     open(f"{OUT}/divider.svg", "w").write(divider())
     open(f"{OUT}/footer.svg", "w").write(footer())
     for name, label, glyph in [("site", "amansriven.com", "↗"), ("linkedin", "linkedin", "in"), ("email", "email", "@")]:
-        open(f"{OUT}/btn-{name}.svg", "w").write(button(label, glyph))
+        for theme in THEMES:
+            open(f"{OUT}/btn-{name}-{theme}.svg", "w").write(button(label, glyph, theme))
     print("header animation settles at", round(t, 2), "s")
