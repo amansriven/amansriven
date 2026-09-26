@@ -10,6 +10,17 @@ TEXT, BODY, MUTED, DIM = "#E6EDF3", "#C9D1D9", "#8B949E", "#6E7681"
 BLUE, INDIGO, SHEEN = "#7AA2F7", "#8B7CF6", "#DCE6FF"
 # footer + divider sit on the page background, so they must read on light and dark
 BLUE_MID, INDIGO_MID = "#5B8DEF", "#7C6CF0"
+
+# the header ships in two themes and README swaps them with <picture>, so each
+# one can sit natively on github's own dark / light page background
+HEADER_THEMES = {
+    "dark": dict(BG=BG, BAR=BAR, LINE=LINE, TEXT=TEXT, BODY=BODY, MUTED=MUTED, DIM=DIM,
+                 BLUE=BLUE, INDIGO=INDIGO, SHEEN=SHEEN,
+                 aura=0.2, aura2=0.16, halo=0.45, grid=0.22, scan=0.07, beam=0.8),
+    "light": dict(BG="#FFFFFF", BAR="#F6F8FA", LINE="#D0D7DE", TEXT="#1F2328", BODY="#424A53",
+                  MUTED="#656D76", DIM="#8C959F", BLUE="#0969DA", INDIGO="#8250DF", SHEEN="#0A3069",
+                  aura=0.09, aura2=0.07, halo=0.16, grid=0.2, scan=0.035, beam=0.55),
+}
 OUT = os.path.dirname(os.path.abspath(__file__))  # writes next to this script
 os.makedirs(OUT, exist_ok=True)
 random.seed(7)  # stable output, so regenerating doesn't produce noisy diffs
@@ -73,7 +84,10 @@ def rounded_rect_path(x, y, w, h, r):
 
 
 # ---------------------------------------------------------------- header
-def header():
+def header(theme):
+    th = HEADER_THEMES[theme]
+    BG, BAR, LINE, TEXT, BODY, MUTED, DIM, BLUE, INDIGO, SHEEN = (
+        th[k] for k in ("BG", "BAR", "LINE", "TEXT", "BODY", "MUTED", "DIM", "BLUE", "INDIGO", "SHEEN"))
     W, H = 1200, 500
     x0 = 56
     NAME_SIZE = 70
@@ -158,18 +172,18 @@ def header():
       <stop offset="0" stop-color="{BLUE}"/><stop offset="1" stop-color="{INDIGO}"/>
     </linearGradient>
     <linearGradient id="scan" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="{BLUE}" stop-opacity="0"/><stop offset="1" stop-color="{BLUE}" stop-opacity="0.07"/>
+      <stop offset="0" stop-color="{BLUE}" stop-opacity="0"/><stop offset="1" stop-color="{BLUE}" stop-opacity="{th['scan']}"/>
     </linearGradient>
     <radialGradient id="core"><stop offset="0" stop-color="{INDIGO}"/><stop offset="1" stop-color="{INDIGO}" stop-opacity="0"/></radialGradient>
     <radialGradient id="aura" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="{BLUE}" stop-opacity="0.2"/><stop offset="1" stop-color="{BLUE}" stop-opacity="0"/>
+      <stop offset="0" stop-color="{BLUE}" stop-opacity="{th['aura']}"/><stop offset="1" stop-color="{BLUE}" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="aura2" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="{INDIGO}" stop-opacity="0.16"/><stop offset="1" stop-color="{INDIGO}" stop-opacity="0"/>
+      <stop offset="0" stop-color="{INDIGO}" stop-opacity="{th['aura2']}"/><stop offset="1" stop-color="{INDIGO}" stop-opacity="0"/>
     </radialGradient>
     <!-- fine grid that fades out toward the edges -->
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M32 0H0V32" fill="none" stroke="{MUTED}" stroke-width="0.5" opacity="0.22"/>
+      <path d="M32 0H0V32" fill="none" stroke="{MUTED}" stroke-width="0.5" opacity="{th['grid']}"/>
     </pattern>
     <radialGradient id="fade" cx="0.35" cy="0.45" r="0.75">
       <stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
@@ -225,7 +239,7 @@ def header():
   <!-- frame: gradient hairline + a light beam travelling around it -->
   <path d="{frame}" fill="none" stroke="url(#frame)" stroke-width="1"/>
   <path d="{frame}" pathLength="1000" fill="none" stroke="url(#beam)" stroke-width="3" stroke-linecap="round"
-        stroke-dasharray="90 910" filter="url(#beamblur)" opacity="0.8">
+        stroke-dasharray="90 910" filter="url(#beamblur)" opacity="{th['beam']}">
     <animate attributeName="stroke-dashoffset" from="0" to="-1000" dur="10s" repeatCount="indefinite"/>
   </path>
   <path d="{frame}" pathLength="1000" fill="none" stroke="url(#beam)" stroke-width="1.2" stroke-linecap="round"
@@ -241,7 +255,7 @@ def header():
 
   <!-- soft halo behind the name, fades in once it resolves -->
   <text x="{x0 - 4}" y="196" class="name" filter="url(#halo)" opacity="0">aman sriven
-    <animate attributeName="opacity" from="0" to="0.45" begin="{t_name_end:.2f}s" dur="1.2s" fill="freeze"/>
+    <animate attributeName="opacity" from="0" to="{th['halo']}" begin="{t_name_end:.2f}s" dur="1.2s" fill="freeze"/>
   </text>
   {name}
 
@@ -340,8 +354,9 @@ def button(label, glyph):
 
 
 if __name__ == "__main__":
-    h, t = header()
-    open(f"{OUT}/header.svg", "w").write(h)
+    for theme in HEADER_THEMES:
+        h, t = header(theme)
+        open(f"{OUT}/header-{theme}.svg", "w").write(h)
     open(f"{OUT}/divider.svg", "w").write(divider())
     open(f"{OUT}/footer.svg", "w").write(footer())
     for name, label, glyph in [("site", "amansriven.com", "↗"), ("linkedin", "linkedin", "in"), ("email", "email", "@")]:
