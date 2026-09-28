@@ -106,8 +106,9 @@ def header(theme):
 
     # agent graph (right side)
     cx, cy = 985, 285
-    nodes = [("planner", 830, 165), ("retriever", 1130, 165),
-             ("tools", 830, 420), ("evals", 1130, 420), ("llm", 985, 135)]
+    # an ai gateway: requests fan out through auth / limits to tools + model providers
+    nodes = [("auth", 830, 165), ("rate limit", 1130, 165),
+             ("mcp tools", 830, 420), ("telemetry", 1130, 420), ("providers", 985, 135)]
     durs = [2.6, 3.1, 3.7, 2.9, 2.3]
     colors = [BLUE, INDIGO, INDIGO, BLUE, BLUE]
 
@@ -146,12 +147,12 @@ def header(theme):
     </circle>
     <circle cx="{cx}" cy="{cy}" r="15" fill="{BG}" stroke="url(#grad)" stroke-width="1.5"/>
     <circle cx="{cx}" cy="{cy}" r="4.5" fill="url(#grad)"/>
-    <text x="{cx}" y="{cy + 50}" text-anchor="middle" class="lbl hi">orchestrator</text>
+    <text x="{cx}" y="{cy + 50}" text-anchor="middle" class="lbl hi">ai gateway</text>
   </g>'''
 
     frame = rounded_rect_path(8.5, 8.5, W - 17, H - 17, 17.5)
 
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="$ whoami — aman sriven, ai / ml engineer, cs @ texas a&amp;m">
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="$ whoami — aman sriven, software engineer, cs @ texas a&amp;m '28 — backend &amp; distributed systems, apis &amp; data pipelines, ai infrastructure">
   <defs>
     <linearGradient id="grad" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="{BLUE}"/><stop offset="1" stop-color="{INDIGO}"/>
@@ -260,17 +261,17 @@ def header(theme):
   {name}
 
   <g opacity="0">{fade_in(t_tag)}
-    <text x="{x0}" y="242" class="d">ai / ml engineer <tspan class="ar">·</tspan> cs @ texas a&amp;m</text>
+    <text x="{x0}" y="242" class="d">software engineer <tspan class="ar">·</tspan> cs @ texas a&amp;m '28</text>
   </g>
 
   <text x="{x0}" y="312" visibility="hidden">{show_at(t_p2)}<tspan class="p">❯ </tspan><tspan class="c">{l3}</tspan></text>
 
   <g opacity="0">{fade_in(t_f1)}
-    <text x="{x0}" y="352" class="o"><tspan class="ar">→ </tspan>llm infrastructure <tspan class="k">&amp;</tspan> inference routing</text></g>
+    <text x="{x0}" y="352" class="o"><tspan class="ar">→ </tspan>backend <tspan class="k">&amp;</tspan> distributed systems</text></g>
   <g opacity="0">{fade_in(t_f2)}
-    <text x="{x0}" y="386" class="o"><tspan class="ar">→ </tspan>multi-agent systems at scale</text></g>
+    <text x="{x0}" y="386" class="o"><tspan class="ar">→ </tspan>high-throughput apis <tspan class="k">&amp;</tspan> data pipelines</text></g>
   <g opacity="0">{fade_in(t_f3)}
-    <text x="{x0}" y="420" class="o"><tspan class="ar">→ </tspan>model reliability <tspan class="k">&amp;</tspan> rag evaluation</text></g>
+    <text x="{x0}" y="420" class="o"><tspan class="ar">→ </tspan>ai infrastructure <tspan class="k">&amp;</tspan> applied ml</text></g>
 
   <text x="{x0}" y="468" visibility="hidden">{show_at(t_final)}<tspan class="p">❯ </tspan><tspan class="ar">▋{blink(t_final)}</tspan></text>
 
@@ -278,7 +279,7 @@ def header(theme):
 
   <!-- statusline -->
   <g opacity="0">{fade_in(t_final, 0.8, 0)}
-    <text x="{W - 40}" y="476" text-anchor="end" class="meta"><tspan fill="{BLUE}">●</tspan> 5 agents online · p50 38ms · utf-8</text>
+    <text x="{W - 40}" y="476" text-anchor="end" class="meta"><tspan fill="{BLUE}">●</tspan> 450K+ req/day · &lt;25ms p95 overhead</text>
   </g>
 
   <!-- live status pill -->
@@ -323,7 +324,7 @@ def footer():
     W, H = 1200, 150
     cmd, t = typed("echo $STATUS", 0.4, 0.07)
     t_out = t + 0.35
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="open to swe / ml internships — reach out">
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="open to swe internships, also open to ai / ml roles — reach out">
   <defs>
     <linearGradient id="shimmer" gradientUnits="userSpaceOnUse" x1="330" y1="0" x2="870" y2="0" spreadMethod="reflect">
       <stop offset="0" stop-color="{BLUE_MID}"/><stop offset="0.5" stop-color="{BLUE}"/><stop offset="1" stop-color="{INDIGO_MID}"/>
@@ -337,8 +338,8 @@ def footer():
   </style>
   <text x="{W / 2}" y="48" text-anchor="middle" font-size="20"><tspan class="p">❯ </tspan><tspan class="m">{cmd}</tspan></text>
   <g opacity="0">{fade_in(t_out)}
-    <text x="{W / 2}" y="98" text-anchor="middle" font-size="34" font-weight="800" fill="url(#shimmer)">open to swe / ml internships<tspan fill="{INDIGO_MID}"> ▋{blink(t_out + 0.6)}</tspan></text>
-    <text x="{W / 2}" y="134" text-anchor="middle" font-size="16" class="m">let's build something · reach out ↗</text>
+    <text x="{W / 2}" y="98" text-anchor="middle" font-size="34" font-weight="800" fill="url(#shimmer)">open to swe internships<tspan fill="{INDIGO_MID}"> ▋{blink(t_out + 0.6)}</tspan></text>
+    <text x="{W / 2}" y="134" text-anchor="middle" font-size="16" class="m">also open to ai / ml roles · reach out ↗</text>
   </g>
 </svg>'''
 

@@ -18,36 +18,44 @@
 ```console
 $ whoami --verbose
 
-  focus       LLM infrastructure, multi-agent systems, model reliability
-  currently   software engineering intern — healthcare AI
-  before      ai engineering intern · undergraduate researcher
-  interests   inference routing, RAG evaluation, distributed systems
-```
+  role       software engineer
+  school     texas a&m · cs + math · '28
 
-<br>
+  focus      backend & distributed systems
+             apis · data pipelines · infra at scale
+
+  also       applied ai / ml
+             llm infra · agentic pipelines · pytorch research
+
+  building   roleward · delta code
+
+  prev       humana            swe intern
+             jaggaer           swe intern
+             tamu cares lab    ml research
+```
 
 ### `~/stack`
 
 <p>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=py,cpp,java,ts,pytorch,tensorflow,kubernetes,docker,aws,gcp,fastapi,flask,nodejs,postgres,mongodb&theme=dark&perline=15" />
-    <img src="https://skillicons.dev/icons?i=py,cpp,java,ts,pytorch,tensorflow,kubernetes,docker,aws,gcp,fastapi,flask,nodejs,postgres,mongodb&theme=light&perline=15" alt="python, c++, java, typescript, pytorch, tensorflow, kubernetes, docker, aws, gcp, fastapi, flask, node, postgres, mongodb" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=py,java,cpp,c,ts,js,go,rust,fastapi,react,nodejs,nextjs,pytorch,spring,mongodb,postgres,kafka,aws,azure,kubernetes,docker,redis,prometheus,grafana&theme=dark&perline=12" />
+    <img src="https://skillicons.dev/icons?i=py,java,cpp,c,ts,js,go,rust,fastapi,react,nodejs,nextjs,pytorch,spring,mongodb,postgres,kafka,aws,azure,kubernetes,docker,redis,prometheus,grafana&theme=light&perline=12" alt="python, java, c++, c, typescript, javascript, go, rust, fastapi, react, node, next.js, pytorch, spring boot, mongodb, postgresql, kafka, aws, azure, kubernetes, docker, redis, prometheus, grafana" />
   </picture>
 </p>
 
 ```yaml
-languages:  [ python, c++, java, typescript, sql ]
-ml:         [ pytorch, tensorflow, vertex-ai, google-adk, rag ]
-infra:      [ kubernetes, docker, argocd, helm, aws, gcp ]
-services:   [ fastapi, flask, node, postgres, mongodb ]
+languages:  [ python, java, c++, c, typescript, javascript, sql, go, rust ]
+frameworks: [ fastapi, react, node, next.js, pytorch, spark, spring boot ]
+data:       [ postgresql, mongodb, kafka, redis ]
+infra:      [ aws, azure, databricks, kubernetes, docker, helm, argocd, prometheus / grafana ]
 ```
 
 ### `~/currently-thinking-about`
 
 ```diff
-+ agent orchestration at scale
-+ retrieval quality over model size
-+ observability for nondeterministic systems
++ retry storms and provider failover
++ lease-based coordination under failure
++ agents that explain findings, not decide facts
 - yaml
 ```
 
@@ -55,6 +63,6 @@ services:   [ fastapi, flask, node, postgres, mongodb ]
 
 <div align="center">
 
-<a href="https://linkedin.com/in/aman-sriven"><img src="./assets/footer.svg" width="60%" alt="open to swe / ml internships · reach out ↗" /></a>
+<a href="https://linkedin.com/in/aman-sriven"><img src="./assets/footer.svg" width="60%" alt="open to swe internships · also open to ai / ml roles · reach out ↗" /></a>
 
 </div>
