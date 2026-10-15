@@ -12,15 +12,13 @@
 
 <br>
 
-<img src="./assets/whoami.svg" width="100%" alt="whoami: software engineer, texas a&m cs + math '28. focus: backend & distributed systems. also applied ai / ml. building roleward and delta code. previously humana, jaggaer, tamu cares lab." />
+<img src="./assets/whoami.svg" width="100%" alt="whoami — focus: backend & distributed systems; also: applied ai / ml; building: roleward, delta code; prev: humana, jaggaer, tamu cares lab" />
 
 <p align="center">
   <img src="https://skillicons.dev/icons?i=py,java,cpp,c,ts,js,go,rust,fastapi,react,nodejs,nextjs,pytorch,spring,mongodb,postgres,kafka,aws,azure,kubernetes,docker,redis,prometheus,grafana&theme=dark&perline=12" alt="python, java, c++, c, typescript, javascript, go, rust, fastapi, react, node, next.js, pytorch, spring boot, mongodb, postgresql, kafka, aws, azure, kubernetes, docker, redis, prometheus, grafana" />
 </p>
 
 <img src="./assets/stats.svg" width="100%" alt="github contributions and streaks" />
-
-<img src="./assets/thinking.svg" width="100%" alt="currently thinking about: retry storms and provider failover; lease-based coordination under failure; agents that explain findings, not decide facts. less yaml." />
 
 <br>
 

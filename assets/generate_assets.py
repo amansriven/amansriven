@@ -131,13 +131,6 @@ def whoami():
                  "whoami — " + "; ".join(f"{k}: {v}" for k, v in rows))
 
 
-def thinking():
-    items = ["retry storms and provider failover", "lease-based coordination under failure",
-             "agents that explain findings, not decide facts"]
-    rows = [[(0, "+", MUTED), (2, s, TEXT)] for s in items] + [[(0, "-", DIM), (2, "yaml", DIM)]]
-    return panel("git diff ~/currently-thinking-about", rows, "currently thinking about: " + "; ".join(items) + ". less yaml.")
-
-
 # ---------------------------------------------------------------- footer
 def footer():
     W, H = 800, 84
@@ -164,7 +157,6 @@ if __name__ == "__main__":
     h, t = header()
     open(f"{OUT}/header.svg", "w").write(h)
     open(f"{OUT}/whoami.svg", "w").write(whoami())
-    open(f"{OUT}/thinking.svg", "w").write(thinking())
     open(f"{OUT}/footer.svg", "w").write(footer())
     for name, label, glyph in [("site", "amansriven.com", "↗"), ("linkedin", "linkedin", "in"), ("email", "email", "@")]:
         open(f"{OUT}/btn-{name}.svg", "w").write(button(label, glyph))
