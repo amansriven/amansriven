@@ -61,8 +61,9 @@ def header():
     x0 = 48
 
     l1, t = typed("whoami", 0.5, 0.08)
-    t_name = t + 0.25
-    t_tag = t_name + 0.35
+    name, t = typed("aman sriven", t + 0.35, 0.09)
+    t_dot = t + 0.15  # the red full stop lands a beat after the name
+    t_tag = t_dot + 0.35
     t_final = t_tag + 0.5
 
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="$ whoami — aman sriven, software engineer, cs @ texas a&amp;m '28">
@@ -90,11 +91,9 @@ def header():
   <!-- terminal -->
   <text x="{x0}" y="102"><tspan class="p">$ </tspan><tspan class="c">{l1}</tspan></text>
 
-  <g opacity="0">{fade_in(t_name)}
-    <text x="{x0 - 3}" y="182" class="name">aman sriven<tspan class="r">.</tspan></text>
-  </g>
+  <text x="{x0 - 3}" y="182" class="name">{name}<tspan class="r" visibility="hidden">.{show_at(t_dot)}</tspan></text>
   <g opacity="0">{fade_in(t_tag)}
-    <text x="{x0}" y="228" class="d">software engineer <tspan class="r">/</tspan> backend <tspan class="r">/</tspan> ai infra <tspan fill="{DIM}">— cs @ texas a&amp;m '28</tspan></text>
+    <text x="{x0}" y="228" class="d">software engineer · texas a&amp;m '28</text>
   </g>
 
   <text x="{x0}" y="296" visibility="hidden">{show_at(t_final)}<tspan class="p">$ </tspan><tspan class="r" style="font-size:20px">▋{blink(t_final)}</tspan></text>
@@ -103,20 +102,14 @@ def header():
 
 
 # ---------------------------------------------------------------- text panels
-def panel(cmd, rows, label, size=19, lh=33, gap=14):
+def panel(cmd, rows, label, size=19, lh=33):
     """A card headed by `$ cmd`, then rows of (column, text, color) segments.
-    Columns are character cells, so everything lines up like real terminal output.
-    A None row adds a small vertical gap between groups."""
+    Columns are character cells, so everything lines up like real terminal output."""
     W, x0, adv = 1200, 48, size * CHAR
     y, body = 112, []
     for row in rows:
-        if row is None:
-            y += gap
-            continue
         for col, text, color in row:
-            # middle dots read as separators, so they pick up the accent
-            spans = f'<tspan fill="{RED}">·</tspan>'.join(escape(p) for p in text.split("·"))
-            body.append(f'<text x="{x0 + col * adv:.1f}" y="{y}" xml:space="preserve" font-size="{size}" fill="{color}">{spans}</text>')
+            body.append(f'<text x="{x0 + col * adv:.1f}" y="{y}" xml:space="preserve" font-size="{size}" fill="{color}">{escape(text)}</text>')
         y += lh
     H = y - lh + 52
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="{escape(label)}">
@@ -127,63 +120,31 @@ def panel(cmd, rows, label, size=19, lh=33, gap=14):
 </svg>'''
 
 
-def kv(rows, key_w):
-    """[(key, value, ...continuation lines)] -> panel rows with the values in one column."""
-    out = []
-    for item in rows:
-        if item is None:
-            out.append(None)
-            continue
-        key, first, *rest = item
-        out.append([(0, key, MUTED), (key_w, first, TEXT)])
-        out.extend([(key_w, line, MUTED)] for line in rest)
-    return out
-
-
 def whoami():
-    jobs = [("humana", "swe intern"), ("jaggaer", "swe intern"), ("tamu cares lab", "ml research")]
-    rows = kv([
-        ("role", "software engineer"),
-        ("school", "texas a&m · cs + math · '28"),
-        None,
-        ("focus", "backend & distributed systems", "apis · data pipelines · infra at scale"),
-        ("also", "applied ai / ml", "llm infra · agentic pipelines · pytorch research"),
-        None,
-        ("building", "roleward · delta code"),
-        None,
-    ], 11)
-    for i, (co, title) in enumerate(jobs):
-        rows.append([(0, "prev" if i == 0 else "", MUTED), (11, co, TEXT), (29, title, MUTED)])
-    return panel("whoami --verbose", rows, "whoami: software engineer, texas a&m cs + math '28. focus: backend & distributed "
-                 "systems. also applied ai / ml. building roleward and delta code. previously humana, jaggaer, tamu cares lab.")
-
-
-def stack():
-    groups = [
-        ("languages", "python java c++ c typescript javascript sql go rust"),
-        ("frameworks", "fastapi react node next.js pytorch spark spring-boot"),
-        ("data", "postgresql mongodb kafka redis"),
-        ("infra", "aws azure databricks kubernetes docker helm argocd prometheus grafana"),
+    rows = [
+        ("focus", "backend & distributed systems"),
+        ("also", "applied ai / ml"),
+        ("building", "roleward, delta code"),
+        ("prev", "humana, jaggaer, tamu cares lab"),
     ]
-    rows = [[(0, k + ":", MUTED), (13, "  ".join(v.split()).replace("spring-boot", "spring boot"), TEXT)] for k, v in groups]
-    return panel("cat ~/stack.yaml", rows, "stack — " + "; ".join(f"{k}: {v}" for k, v in groups))
+    return panel("whoami --verbose", [[(0, k, MUTED), (11, v, TEXT)] for k, v in rows],
+                 "whoami — " + "; ".join(f"{k}: {v}" for k, v in rows))
 
 
 def thinking():
     items = ["retry storms and provider failover", "lease-based coordination under failure",
              "agents that explain findings, not decide facts"]
-    rows = [[(0, "+", RED), (2, s, TEXT)] for s in items] + [[(0, "-", DIM), (2, "yaml", DIM)]]
+    rows = [[(0, "+", MUTED), (2, s, TEXT)] for s in items] + [[(0, "-", DIM), (2, "yaml", DIM)]]
     return panel("git diff ~/currently-thinking-about", rows, "currently thinking about: " + "; ".join(items) + ". less yaml.")
 
 
 # ---------------------------------------------------------------- footer
 def footer():
-    W, H = 800, 120
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="open to swe internships, also open to ai / ml roles — reach out">
+    W, H = 800, 84
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="open to swe and ai / ml internships — reach out">
   {style()}
   {card(W, H)}
-  <text x="{W / 2}" y="58" text-anchor="middle" font-size="28" font-weight="700" fill="{TEXT}">open to swe internships<tspan fill="{RED}"> ▋{blink(0)}</tspan></text>
-  <text x="{W / 2}" y="90" text-anchor="middle" font-size="18" fill="{MUTED}">also open to ai / ml roles <tspan fill="{RED}">·</tspan> reach out ↗</text>
+  <text x="{W / 2}" y="50" text-anchor="middle" font-size="22" fill="{TEXT}">open to swe + ai / ml internships <tspan fill="{MUTED}">→ reach out</tspan><tspan fill="{RED}"> ▋{blink(0)}</tspan></text>
 </svg>'''
 
 
@@ -203,7 +164,6 @@ if __name__ == "__main__":
     h, t = header()
     open(f"{OUT}/header.svg", "w").write(h)
     open(f"{OUT}/whoami.svg", "w").write(whoami())
-    open(f"{OUT}/stack.svg", "w").write(stack())
     open(f"{OUT}/thinking.svg", "w").write(thinking())
     open(f"{OUT}/footer.svg", "w").write(footer())
     for name, label, glyph in [("site", "amansriven.com", "↗"), ("linkedin", "linkedin", "in"), ("email", "email", "@")]:
