@@ -1,63 +1,28 @@
 <div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/header-dark.svg" />
-  <img src="./assets/header-light.svg" width="100%" alt="$ whoami — aman sriven · ai / ml engineer · cs @ texas a&m" />
-</picture>
+<img src="./assets/header.svg" width="100%" alt="$ whoami — aman sriven · software engineer · cs @ texas a&m" />
 
 <br><br>
 
-<a href="https://amansriven.com/gh"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/btn-site-dark.svg" /><img src="./assets/btn-site-light.svg" height="40" alt="amansriven.com" /></picture></a>&nbsp;
-<a href="https://linkedin.com/in/aman-sriven"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/btn-linkedin-dark.svg" /><img src="./assets/btn-linkedin-light.svg" height="40" alt="LinkedIn" /></picture></a>&nbsp;
-<a href="mailto:sriven.aman@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/btn-email-dark.svg" /><img src="./assets/btn-email-light.svg" height="40" alt="Email" /></picture></a>
+<a href="https://amansriven.com/gh"><img src="./assets/btn-site.svg" height="40" alt="amansriven.com" /></a>&nbsp;
+<a href="https://linkedin.com/in/aman-sriven"><img src="./assets/btn-linkedin.svg" height="40" alt="LinkedIn" /></a>&nbsp;
+<a href="mailto:sriven.aman@gmail.com"><img src="./assets/btn-email.svg" height="40" alt="Email" /></a>
 
 </div>
 
 <br>
 
-```console
-$ whoami --verbose
+<img src="./assets/whoami.svg" width="100%" alt="whoami: software engineer, texas a&m cs + math '28. focus: backend & distributed systems. also applied ai / ml. building roleward and delta code. previously humana, jaggaer, tamu cares lab." />
 
-  role       software engineer
-  school     texas a&m · cs + math · '28
+<img src="./assets/stack.svg" width="100%" alt="stack: python, java, c++, c, typescript, javascript, sql, go, rust; fastapi, react, node, next.js, pytorch, spark, spring boot; postgresql, mongodb, kafka, redis; aws, azure, databricks, kubernetes, docker, helm, argocd, prometheus, grafana" />
 
-  focus      backend & distributed systems
-             apis · data pipelines · infra at scale
-
-  also       applied ai / ml
-             llm infra · agentic pipelines · pytorch research
-
-  building   roleward · delta code
-
-  prev       humana            swe intern
-             jaggaer           swe intern
-             tamu cares lab    ml research
-```
-
-### `~/stack`
-
-<p>
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=py,java,cpp,c,ts,js,go,rust,fastapi,react,nodejs,nextjs,pytorch,spring,mongodb,postgres,kafka,aws,azure,kubernetes,docker,redis,prometheus,grafana&theme=dark&perline=12" />
-    <img src="https://skillicons.dev/icons?i=py,java,cpp,c,ts,js,go,rust,fastapi,react,nodejs,nextjs,pytorch,spring,mongodb,postgres,kafka,aws,azure,kubernetes,docker,redis,prometheus,grafana&theme=light&perline=12" alt="python, java, c++, c, typescript, javascript, go, rust, fastapi, react, node, next.js, pytorch, spring boot, mongodb, postgresql, kafka, aws, azure, kubernetes, docker, redis, prometheus, grafana" />
-  </picture>
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=py,java,cpp,c,ts,js,go,rust,fastapi,react,nodejs,nextjs,pytorch,spring,mongodb,postgres,kafka,aws,azure,kubernetes,docker,redis,prometheus,grafana&theme=dark&perline=12" alt="python, java, c++, c, typescript, javascript, go, rust, fastapi, react, node, next.js, pytorch, spring boot, mongodb, postgresql, kafka, aws, azure, kubernetes, docker, redis, prometheus, grafana" />
 </p>
 
-```yaml
-languages:  [ python, java, c++, c, typescript, javascript, sql, go, rust ]
-frameworks: [ fastapi, react, node, next.js, pytorch, spark, spring boot ]
-data:       [ postgresql, mongodb, kafka, redis ]
-infra:      [ aws, azure, databricks, kubernetes, docker, helm, argocd, prometheus / grafana ]
-```
+<img src="./assets/stats.svg" width="100%" alt="github contributions and streaks" />
 
-### `~/currently-thinking-about`
-
-```diff
-+ retry storms and provider failover
-+ lease-based coordination under failure
-+ agents that explain findings, not decide facts
-- yaml
-```
+<img src="./assets/thinking.svg" width="100%" alt="currently thinking about: retry storms and provider failover; lease-based coordination under failure; agents that explain findings, not decide facts. less yaml." />
 
 <br>
 

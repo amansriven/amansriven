@@ -1,0 +1,35 @@
+# Rebuilds the contribution / streak card and commits it to assets/stats.svg
+name: generate stats
+
+on:
+  schedule:
+    - cron: "17 * * * *"  # hourly, offset so it doesn't collide with the snake push
+  workflow_dispatch:      # lets you run it manually from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: build card
+        env:
+          GITHUB_TOKEN: ${{ secrets.STATS_TOKEN || secrets.GITHUB_TOKEN }}
+          GITHUB_USER: ${{ github.repository_owner }}
+        run: python3 assets/generate_stats.py
+
+      - name: commit card
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/stats.svg
+          git diff --staged --quiet || git commit -m "chore: update stats [skip ci]"
+          git pull --rebase
+          git push
