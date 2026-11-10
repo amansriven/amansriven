@@ -18,6 +18,12 @@
   <img src="https://skillicons.dev/icons?i=py,java,cpp,c,ts,js,go,rust,fastapi,react,nodejs,nextjs,pytorch,spring,mongodb,postgres,kafka,aws,azure,kubernetes,docker,redis,prometheus,grafana&theme=dark&perline=12" alt="python, java, c++, c, typescript, javascript, go, rust, fastapi, react, node, next.js, pytorch, spring boot, mongodb, postgresql, kafka, aws, azure, kubernetes, docker, redis, prometheus, grafana" />
 </p>
 
+### `~/building`
+
+**[Roleward](https://roleward.org)**: an AI career workspace that connects job applications, resume tailoring, coding practice, and mock interviews.
+Next.js · TypeScript · AWS · OpenAI Realtime · [showcase →](https://github.com/amansriven/roleward-showcase)
+<br><sub>🔒 Source is in a private repository. Code access is available on request.</sub>
+
 <img src="./assets/stats.svg" width="100%" alt="github contributions and streaks" />
 
 <br>
